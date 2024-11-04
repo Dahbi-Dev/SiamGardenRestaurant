@@ -1,12 +1,6 @@
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect, createContext, useContext, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Menu from './pages/Menu';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Footer from './components/Footer';
 import { ThemeProvider } from './context/ThemeContext';
 
 // Create Loading Context
@@ -34,23 +28,58 @@ const LoadingSpinner = () => (
   </div>
 );
 
+// Lazy-loaded components
+const Navbar = lazy(() => import('./components/Navbar'));
+const Home = lazy(() => import('./pages/Home'));
+const Menu = lazy(() => import('./pages/Menu'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
+
 // Main App Component
 const App = () => {
   const [appLoaded, setAppLoaded] = useState(false);
 
   useEffect(() => {
-    // Simulate checking if all resources are loaded
-    const loadApp = async () => {
-      // Wait for initial resources to load
-      await Promise.all([
-        // Add your resource loading promises here
-        new Promise(resolve => setTimeout(resolve, 1000)) // Minimum loading time
-      ]);
+    // Load your assets here
+    Promise.all([
+      // Load images
+      preloadImage('./assets/Home/home.png'),
+      preloadImage('./assets/Home/home2.png'),
+      preloadImage('./assets/Home/home3.png'),
+      preloadImage('./assets/Home/home_1.png'),
+      preloadImage('./assets/Home/home_2.png'),
+      preloadImage('./assets/About/ab.png'),
+      preloadImage('./assets/About/full.png'),
+      preloadImage('./assets/Contact/co.png'),
+      preloadImage('./assets/Menu/m0.png'),
+      preloadImage('./assets/Menu/m2.png'),
+      preloadImage('./assets/Menu/m3.png'),
+      preloadImage('./assets/Menu/m4.png'),
+      preloadImage('./assets/Menu/m5.png'),
+      preloadImage('./assets/Menu/m6.png'),
+      // Load fonts
+      loadFont('/path/to/font.ttf'),
+    ]).then(() => {
       setAppLoaded(true);
-    };
-
-    loadApp();
+    });
   }, []);
+
+  // Helper functions
+  const preloadImage = (src) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = resolve;
+    });
+  };
+
+  const loadFont = (src) => {
+    return new Promise((resolve) => {
+      const font = new FontFace('MyFont', `url(${src})`);
+      font.load().then(resolve);
+    });
+  };
 
   return (
     <div className="dark:bg-dark-primary dark:text-gray-100">
@@ -59,14 +88,16 @@ const App = () => {
           {!appLoaded && <LoadingSpinner />}
           <Router>
             <div className="relative">
-              <Navbar />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/menu" element={<Menu  />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-              </Routes>
-              <Footer />
+              <Suspense fallback={<div>Loading...</div>}>
+                <Navbar />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/menu" element={<Menu />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+                <Footer />
+              </Suspense>
             </div>
           </Router>
         </ThemeProvider>
