@@ -9,7 +9,7 @@ const About = () => {
       <div className="relative h-64 mb-16 ">
         <img src={ab1 ? ab1 : "https://placehold.co/1920x400"} alt="About Us Banner" className="w-full h-full object-cover" />
         <div className="absolute inset-0  bg-opacity-50 flex items-center justify-center">
-          <h2 className="text-4xl font-bold ">About Us</h2>
+          <h2 className="text-4xl font-bold text-gray-300 ">About Us</h2>
         </div>
       </div>
       <div className="container mx-auto px-4  dark:bg-dark-primary dark:text-gray-300">

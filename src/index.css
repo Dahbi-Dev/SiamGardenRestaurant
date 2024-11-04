@@ -2,7 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import the BonaNovaSC-Regular font */
+@font-face {
+  font-family: 'BonaNovaSC';
+  src: url('./assets/Fonts/BonaNovaSC-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Apply the font to the entire website */
 html, body, #root {
+  font-family: 'BonaNovaSC', sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;

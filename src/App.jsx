@@ -5,12 +5,10 @@ import { ThemeProvider } from './context/ThemeContext';
 
 // Create Loading Context
 const LoadingContext = createContext();
-
 export const useLoading = () => useContext(LoadingContext);
 
 const LoadingProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
-
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
       {children}
@@ -41,43 +39,53 @@ const App = () => {
   const [appLoaded, setAppLoaded] = useState(false);
 
   useEffect(() => {
-    // Load your assets here
-    Promise.all([
-      // Load images
-      preloadImage('./assets/Home/home.png'),
-      preloadImage('./assets/Home/home2.png'),
-      preloadImage('./assets/Home/home3.png'),
-      preloadImage('./assets/Home/home_1.png'),
-      preloadImage('./assets/Home/home_2.png'),
-      preloadImage('./assets/About/ab.png'),
-      preloadImage('./assets/About/full.png'),
-      preloadImage('./assets/Contact/co.png'),
-      preloadImage('./assets/Menu/m0.png'),
-      preloadImage('./assets/Menu/m2.png'),
-      preloadImage('./assets/Menu/m3.png'),
-      preloadImage('./assets/Menu/m4.png'),
-      preloadImage('./assets/Menu/m5.png'),
-      preloadImage('./assets/Menu/m6.png'),
-      // Load fonts
-      loadFont('/path/to/font.ttf'),
-    ]).then(() => {
-      setAppLoaded(true);
-    });
+    const loadAssets = async () => {
+      try {
+        await Promise.all([
+          preloadImage('./assets/Home/home.png'),
+          preloadImage('./assets/Home/home2.png'),
+          preloadImage('./assets/Home/home3.png'),
+          preloadImage('./assets/Home/home_1.png'),
+          preloadImage('./assets/Home/home_2.png'),
+          preloadImage('./assets/About/ab.png'),
+          preloadImage('./assets/About/full.png'),
+          preloadImage('./assets/Contact/co.png'),
+          preloadImage('./assets/Menu/m0.png'),
+          preloadImage('./assets/Menu/m2.png'),
+          preloadImage('./assets/Menu/m3.png'),
+          preloadImage('./assets/Menu/m4.png'),
+          preloadImage('./assets/Menu/m5.png'),
+          preloadImage('./assets/Menu/m6.png'),
+          loadFont('./assets/Fonts/BonaNovaSC-Regular.ttf'),
+        ]);
+        setAppLoaded(true);
+      } catch (error) {
+        console.error('Error preloading assets:', error);
+        setAppLoaded(true); // Allow app to load even if assets fail
+      }
+    };
+
+    // Set a maximum loading time to prevent infinite loading
+    const timeout = setTimeout(() => setAppLoaded(true), 10000);
+    loadAssets();
+
+    return () => clearTimeout(timeout);
   }, []);
 
   // Helper functions
   const preloadImage = (src) => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const img = new Image();
       img.src = src;
       img.onload = resolve;
+      img.onerror = reject;
     });
   };
 
   const loadFont = (src) => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const font = new FontFace('MyFont', `url(${src})`);
-      font.load().then(resolve);
+      font.load().then(resolve).catch(reject);
     });
   };
 
@@ -88,7 +96,7 @@ const App = () => {
           {!appLoaded && <LoadingSpinner />}
           <Router>
             <div className="relative">
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<LoadingSpinner />}>
                 <Navbar />
                 <Routes>
                   <Route path="/" element={<Home />} />

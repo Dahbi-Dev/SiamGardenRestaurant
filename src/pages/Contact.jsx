@@ -7,7 +7,6 @@ import co from '../assets/Contact/co.png'
 const Contact = () => {
   return (
     <section className="pt-16 dark:bg-dark-primary">
-      <div className="container mx-auto">
         {/* Header Image */}
         <div className="relative h-64 mb-16">
           <img src={co ? co : "https://placehold.co/1920x400"} alt="About Us Banner" className="w-full h-full object-cover" />
@@ -15,6 +14,7 @@ const Contact = () => {
             <h2 className="text-4xl font-bold text-white">Contact Us</h2>
           </div>
         </div>
+      <div className="container mx-auto">
 
         {/* Contact Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 m-5 sm:m-5">
