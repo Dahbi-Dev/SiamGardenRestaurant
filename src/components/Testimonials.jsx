@@ -81,9 +81,9 @@ const Testimonials = () => {
 
   const TestimonialCard = ({ name, rating, message }) => (
     <div className="w-72 flex-shrink-0 mx-4 dark:bg-dark-primary dark:text-gray-100 ">
-      <div className="rounded-lg border border-black dark:border dark:border-white p-6 h-full flex flex-col transition-all duration-300 hover:shadow-xl ">
+      <div className="rounded-lg border border-gray-300 dark:border dark:border-white p-6 h-full flex flex-col transition-all duration-300 hover:shadow-2xl ">
         <div className="flex items-center gap-3 mb-4 ">
-          <div className="w-10 h-10 bg-gradient-to-br from-white to-gray-900 rounded-full flex items-center justify-center text-sm font-bold">
+          <div className="w-10 h-10 bg-gradient-to-br from-amber-600 to-white rounded-full flex items-center justify-center text-sm font-bold">
             {name.charAt(0)}
           </div>
           <div>
@@ -100,7 +100,7 @@ const Testimonials = () => {
           </div>
         </div>
         
-        <p className="dark:text-gray-300 text-sm leading-relaxed italic">
+        <p className="text-gray-700 dark:text-gray-400 text-sm leading-relaxed font-sans italic">
           "{message}"
         </p>
       </div>

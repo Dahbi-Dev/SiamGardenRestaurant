@@ -65,6 +65,15 @@ const App = () => {
           preloadImage("./assets/Menu/m4.png"),
           preloadImage("./assets/Menu/m5.png"),
           preloadImage("./assets/Menu/m6.png"),
+          preloadImage("./assets/Home/logo.png"),
+          preloadImage("../public/images/android-chrome-192x192.png"),
+          preloadImage("../public/images/android-chrome-512x512.png"),
+          preloadImage("../public/images/apple-touch-icon.png"),
+          preloadImage("../public/images/favicon-16x16.png"),
+          preloadImage("../public/images/favicon-32x32.png"),
+          preloadImage("../public/favicon.ico"),
+          preloadImage("../public/Robots.txt"),
+          preloadImage("../public/site.webmanifest"),
           loadFont("./assets/Fonts/BonaNovaSC-Regular.ttf"),
         ]);
         setAppLoaded(true);

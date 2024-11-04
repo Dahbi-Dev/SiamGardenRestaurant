@@ -15,7 +15,8 @@
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^6.27.0",
-    "restaurant-portfolio": "file:"
+    "restaurant-portfolio": "file:",
+    "sitemap": "^8.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
