@@ -1,12 +1,26 @@
 {
     "version": 2,
+    "builds": [
+      {
+        "src": "vite.config.js",
+        "use": "@vercel/static-build",
+        "config": { "distDir": "dist" }
+      }
+    ],
     "routes": [
       {
         "src": "/(.*)\\.js$",
-        "dest": "/$1.js",
         "headers": {
           "Content-Type": "application/javascript"
-        }
+        },
+        "dest": "/index.html"
+      },
+      {
+        "src": "/(.*)\\.css$",
+        "headers": {
+          "Content-Type": "text/css"
+        },
+        "dest": "/index.html"
       },
       {
         "src": "/(.*)",
