@@ -1,7 +1,14 @@
-import { useState, useEffect, createContext, useContext, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Loader2 } from 'lucide-react';
-import { ThemeProvider } from './context/ThemeContext';
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  lazy,
+  Suspense,
+} from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Loader2 } from "lucide-react";
+import { ThemeProvider } from "./context/ThemeContext";
 
 // Create Loading Context
 const LoadingContext = createContext();
@@ -27,12 +34,12 @@ const LoadingSpinner = () => (
 );
 
 // Lazy-loaded components
-const Navbar = lazy(() => import('./components/Navbar'));
-const Home = lazy(() => import('./pages/Home'));
-const Menu = lazy(() => import('./pages/Menu'));
-const About = lazy(() => import('./pages/About'));
-const Contact = lazy(() => import('./pages/Contact'));
-const Footer = lazy(() => import('./components/Footer'));
+import Home from "./pages/Home";
+const Navbar = lazy(() => import("./components/Navbar"));
+const Menu = lazy(() => import("./pages/Menu"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Footer = lazy(() => import("./components/Footer"));
 
 // Main App Component
 const App = () => {
@@ -42,25 +49,25 @@ const App = () => {
     const loadAssets = async () => {
       try {
         await Promise.all([
-          preloadImage('./assets/Home/home.png'),
-          preloadImage('./assets/Home/home2.png'),
-          preloadImage('./assets/Home/home3.png'),
-          preloadImage('./assets/Home/home_1.png'),
-          preloadImage('./assets/Home/home_2.png'),
-          preloadImage('./assets/About/ab.png'),
-          preloadImage('./assets/About/full.png'),
-          preloadImage('./assets/Contact/co.png'),
-          preloadImage('./assets/Menu/m0.png'),
-          preloadImage('./assets/Menu/m2.png'),
-          preloadImage('./assets/Menu/m3.png'),
-          preloadImage('./assets/Menu/m4.png'),
-          preloadImage('./assets/Menu/m5.png'),
-          preloadImage('./assets/Menu/m6.png'),
-          loadFont('./assets/Fonts/BonaNovaSC-Regular.ttf'),
+          preloadImage("./assets/Home/home.png"),
+          preloadImage("./assets/Home/home2.png"),
+          preloadImage("./assets/Home/home3.png"),
+          preloadImage("./assets/Home/home_1.png"),
+          preloadImage("./assets/Home/home_2.png"),
+          preloadImage("./assets/About/ab.png"),
+          preloadImage("./assets/About/full.png"),
+          preloadImage("./assets/Contact/co.png"),
+          preloadImage("./assets/Menu/m0.png"),
+          preloadImage("./assets/Menu/m2.png"),
+          preloadImage("./assets/Menu/m3.png"),
+          preloadImage("./assets/Menu/m4.png"),
+          preloadImage("./assets/Menu/m5.png"),
+          preloadImage("./assets/Menu/m6.png"),
+          loadFont("./assets/Fonts/BonaNovaSC-Regular.ttf"),
         ]);
         setAppLoaded(true);
       } catch (error) {
-        console.error('Error preloading assets:', error);
+        console.error("Error preloading assets:", error);
         setAppLoaded(true); // Allow app to load even if assets fail
       }
     };
@@ -84,7 +91,7 @@ const App = () => {
 
   const loadFont = (src) => {
     return new Promise((resolve, reject) => {
-      const font = new FontFace('MyFont', `url(${src})`);
+      const font = new FontFace("MyFont", `url(${src})`);
       font.load().then(resolve).catch(reject);
     });
   };
