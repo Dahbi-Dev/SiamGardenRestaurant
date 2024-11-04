@@ -1,0 +1,20 @@
+{
+    "name": "Siam Garden Restaurant",
+    "short_name": "Siam Garden",
+    "description": "Experience authentic Thai cuisine in a serene garden setting, where flavors and ambiance blend harmoniously.",
+    "icons": [
+        {
+            "src": "./images/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./images/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#1f2937",
+    "background_color": "#f3f4f6",  
+    "display": "standalone"
+}

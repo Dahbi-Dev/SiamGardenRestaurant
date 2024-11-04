@@ -9,6 +9,16 @@ const Navbar = () => {
   const location = useLocation();
   const { darkMode, setDarkMode } = useTheme();
 
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    // Show navbar on any route change except Home
+    if (location.pathname !== '/') {
+      setShowNav(true);
+    }
+  }, [location.pathname]);
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -19,7 +29,7 @@ const Navbar = () => {
           setShowNav(false);
         }
       } else {
-        setShowNav(true);
+        setShowNav(true); // Always show navbar on non-Home routes
       }
       setLastScrollY(currentScrollY);
     };
@@ -27,6 +37,11 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY, location]);
+
+  // Function to hide navbar when clicking on "Home"
+  const handleHomeClick = () => {
+    setShowNav(false);
+  };
 
   return (
     <nav
@@ -48,9 +63,9 @@ const Navbar = () => {
               aria-label="Toggle dark mode"
             >
               {darkMode ? (
-                <Moon className="w-4 h-4 text-yellow-500" />
+                <Sun className="w-4 h-4 text-yellow-500" />
               ) : (
-                <Sun className="w-4 h-4 text-orange-500" />
+                <Moon className="w-4 h-4 text-orange-500" />
               )}
             </button>
           </div>
@@ -58,7 +73,8 @@ const Navbar = () => {
           {/* Links */}
           <div className="flex items-center space-x-12 h-12">
             <Link
-              to=""
+              to="/"
+              onClick={handleHomeClick} // Hide navbar on "Home" link click
               className="text-gray-800 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 font-medium"
             >
               Home

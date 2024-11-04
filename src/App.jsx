@@ -35,6 +35,8 @@ const LoadingSpinner = () => (
 
 // Lazy-loaded components
 import Home from "./pages/Home";
+import Scroll from "./components/Scroll";
+import { Helmet } from "react-helmet";
 const Navbar = lazy(() => import("./components/Navbar"));
 const Menu = lazy(() => import("./pages/Menu"));
 const About = lazy(() => import("./pages/About"));
@@ -98,6 +100,10 @@ const App = () => {
 
   return (
     <div className="dark:bg-dark-primary dark:text-gray-100">
+       <Helmet>
+      <title>Siam Garden Restaurant - Fine Dining</title>
+      <meta name="description" content="Experience exquisite dining at Siam Garden Restaurant, offering a blend of traditional and contemporary cuisine." />
+    </Helmet>
       <LoadingProvider>
         <ThemeProvider>
           {!appLoaded && <LoadingSpinner />}
@@ -112,6 +118,7 @@ const App = () => {
                   <Route path="/contact" element={<Contact />} />
                 </Routes>
                 <Footer />
+                <Scroll />
               </Suspense>
             </div>
           </Router>

@@ -4,7 +4,7 @@ import { Facebook, Instagram, Twitter } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className=" dark:bg-dark-primary dark:text-gray-100 mt-32">
+    <footer className=" dark:bg-dark-primary dark:text-gray-100 mt-32 border-t border-gray-300 ">
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -56,9 +56,11 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
+        <div className="mt-12 pt-8  ">
+
+          <hr className='p-2' />
           <p className="text-center text-gray-400 text-sm">
-            © {new Date().getFullYear()} Fine Dining Restaurant. All rights reserved.
+            © {new Date().getFullYear()}Made By <span className='text-yellow-500 font-bold font-mono text-lg'> <Link to={'https://gold-weby.vercel.app/'} target='_blank'>GoldWeby</Link> </span> Siam Garden Restaurant. All rights reserved.
           </p>
         </div>
       </div>
