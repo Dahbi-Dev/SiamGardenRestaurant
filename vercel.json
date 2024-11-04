@@ -2,9 +2,15 @@
     "version": 2,
     "routes": [
       {
+        "src": "/(.*)\\.js$",
+        "dest": "/$1.js",
+        "headers": {
+          "Content-Type": "application/javascript"
+        }
+      },
+      {
         "src": "/(.*)",
-        "dest": "/index.html",
-        "status": 200
+        "dest": "/index.html"
       }
     ]
   }
